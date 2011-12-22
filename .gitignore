@@ -1,0 +1,9 @@
+/.classpath
+/.clover
+/.project
+/.settings
+/.springBeans
+/.metadata
+/target
+/bin
+/*.tmp
