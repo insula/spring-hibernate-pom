@@ -8,11 +8,41 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>spring-hibernate-pom</name>
 	<description>Parent POM for a Spring-Hibernate project</description>
+	<scm>
+		<connection>scm:git:git@github.com:insula/spring-hibernate-pom.git</connection>
+		<url>scm:git:git@github.com:insula/spring-hibernate-pom.git</url>
+		<developerConnection>scm:git:git@github.com:insula/spring-hibernate-pom.git</developerConnection>
+	</scm>
+	<distributionManagement>
+		<repository>
+			<id>maven-oss-insula</id>
+			<url>s3://maven-oss.insula.com.br/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven-oss-insula-snapshot</id>
+			<url>s3://maven-oss.insula.com.br/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<developers>
+		<developer>
+			<id>yanaga</id>
+			<name>Edson Yanaga</name>
+			<email>yanaga@insula.com.br</email>
+			<url>http://www.yanaga.com.br</url>
+			<organization>Insula Tecnologia</organization>
+			<organizationUrl>http://insula.com.br</organizationUrl>
+			<timezone>-3</timezone>
+			<roles>
+				<role>Project Leader</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
 	<properties>
 		<spring.version>3.1.0.RELEASE</spring.version>
-		<aspectj.version>1.6.11</aspectj.version>
+		<aspectj.version>1.6.12</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<querydsl.version>2.2.3</querydsl.version>
+		<querydsl.version>2.3.0</querydsl.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
@@ -131,7 +161,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
@@ -214,6 +254,11 @@
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
 			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
@@ -305,6 +350,13 @@
 		</dependency>
 	</dependencies>
 	<build>
+		<extensions>
+			<extension>
+				<groupId>org.springframework.build.aws</groupId>
+				<artifactId>org.springframework.build.aws.maven</artifactId>
+				<version>3.0.0.RELEASE</version>
+			</extension>
+		</extensions>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -412,6 +464,16 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.2.2</version>
+				<configuration>
+					<goals>
+						source:jar javadoc:jar deploy
+					</goals>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
